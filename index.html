@@ -144,7 +144,8 @@
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnOanbsVNyXWPP1W58sYw1M6lOnfweIrvrBUvV_dIPU-IrTn6oj65JVap8bAK8BTeyEg/exec';
+    // URL Apps Script terbaru (pesan semangat)
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxX-iO0aBrFl-L8VqFuAdMyQtHSGgW20ryK1qLN3lI_kvWSV6XCs7IlZmgjYOgH-SyUw/exec';
 
     const questions = [
         { q: 'Nilai dari <b>Σ<sub>i=1</sub><sup>5</sup> i</b> adalah...', o: ['10','15','20','25'], a: '15', e: '1 + 2 + 3 + 4 + 5 = <b>15</b>' },
@@ -339,6 +340,7 @@
     function simpanData(skor, benar) {
         var url = SCRIPT_URL + '?nama=' + encodeURIComponent(studentName) + '&kelas=' + encodeURIComponent(studentClass) + '&skor=' + skor + '&benar=' + benar + '&salah=' + (10-benar);
         window.open(url, '_blank');
+        alert('Terimakasih sudah mengerjakan Soal dengan baik, tetap semangat belajarnya ya!');
     }
 </script>
 </body>
