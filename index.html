@@ -75,6 +75,10 @@
         .btn-primary:active { background: #0d47a1; }
         .btn-outline { background: white; color: #1565c0; border: 2px solid #1565c0; }
         .btn-outline:active { background: #e3f2fd; }
+        .btn-print { background: #2e7d32; color: white; }
+        .btn-print:active { background: #1b5e20; }
+        .btn-save { background: #ff8f00; color: white; font-weight: 700; font-size: 1rem; padding: 12px 24px; animation: pulseBtn 2s infinite; }
+        @keyframes pulseBtn { 0%,100%{box-shadow:0 0 8px rgba(255,143,0,0.4)}50%{box-shadow:0 0 20px rgba(255,143,0,0.8)} }
         .btn-flag { background: white; color: #c62828; border: 2px solid #ef9a9a; }
         .btn-flag.active { background: #c62828; color: white; }
         .btn-finish { background: #e65100; color: white; font-weight: 700; animation: gentleGlow 1.5s infinite; }
@@ -134,6 +138,20 @@
             border-radius: 8px; font-weight: 600; color: #2e7d32; margin: 6px 0; font-size: 0.9rem;
         }
         .review-question { background: white; padding: 6px; border-radius: 6px; margin: 4px 0; border-left: 4px solid #1565c0; font-size: 0.85rem; }
+        .alert-box {
+            background: #fff3e0; border: 2px solid #ff8f00; border-radius: 10px;
+            padding: 12px; margin: 10px 0; text-align: center; font-weight: 600; color: #e65100;
+        }
+        @media print {
+            body { background: white !important; padding: 0 !important; }
+            .card { box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; width: 100% !important; padding: 0 !important; }
+            .btn-row, #no-print { display: none !important; }
+            h1 { font-size: 1.3rem; }
+            h2 { font-size: 0.9rem; }
+            .review { break-inside: avoid; border: 1px solid #ccc; }
+            .score-circle { width: 60px; height: 60px; font-size: 1.2rem; }
+            .student-info { background: #f1f8e9; }
+        }
         @media (max-width: 500px) {
             .card { padding: 15px 10px; }
             h1 { font-size: 1.4rem; }
@@ -207,9 +225,9 @@
             <div id="options"></div>
         </div>
         <div class="btn-row">
-            <button class="btn-outline" onclick="prevQ()">◀ Sebelumnya</button>
+            <button class="btn-outline" onclick="prevQ()">◀️ Sebelumnya</button>
             <button class="btn-flag" id="flagBtn" onclick="toggleFlag()">🚩 Tandai</button>
-            <button class="btn-outline" onclick="nextQ()">Selanjutnya ▶</button>
+            <button class="btn-outline" onclick="nextQ()">Selanjutnya ▶️</button>
         </div>
         <div class="btn-row">
             <button class="btn-finish hidden" id="finishBtn" onclick="confirmSubmit()">📝 Kumpulkan & Lihat Skor</button>
@@ -221,8 +239,8 @@
 </div>
 
 <script>
-    // ⚠️ URL SUDAH DIISI DENGAN APPS SCRIPT KAMU
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzBVqFSb2Zty_W9Wwbh_aD3aI8-gxLFwPZhP53d6nBLV1f-wd1HsP4ls-uiq23Mf5eoyA/exec';
+    // URL APPS SCRIPT (SUDAH TERPASANG)
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHCJhe5LUCndk_2r9NzjVh9-k3qd25Zo9Txq_iovJEdAuqACSbM6_8IiemcPxfV-kfxQ/exec';
 
     const questions = [
         { q: 'Nilai dari <b>Σ<sub>i=1</sub><sup>5</sup> i</b> adalah...', o: ['10','15','20','25'], a: '15', e: '1+2+3+4+5 = <b>15</b>' },
@@ -245,6 +263,7 @@
     let quizFinished = false;
     let studentName = '', studentClass = '';
     let lockOptions = false;
+    let dataTerkirim = false;
 
     function hideAll() {
         document.getElementById('home').classList.add('hidden');
@@ -259,6 +278,7 @@
         document.getElementById('home').classList.remove('hidden');
         if (interval) clearInterval(interval);
         quizFinished = true;
+        dataTerkirim = false;
     }
 
     function showMateri() {
@@ -294,6 +314,7 @@
         time = 1800;
         quizFinished = false;
         lockOptions = false;
+        dataTerkirim = false;
         if (interval) clearInterval(interval);
         interval = setInterval(tick, 1000);
         updateTimerDisplay();
@@ -358,7 +379,7 @@
             if (i === current) cls += 'current ';
             if (answers[i] !== null) cls += 'answered ';
             if (flagged[i]) cls += 'flagged ';
-            gridHTML += `<div class="num ${cls.trim()}" onclick="goToQuestion(${i})">${i+1}</div>`;
+            gridHTML += <div class="num ${cls.trim()}" onclick="goToQuestion(${i})">${i+1}</div>;
         }
         document.getElementById('numgrid').innerHTML = gridHTML;
 
@@ -437,7 +458,7 @@
     function confirmSubmit() {
         if (quizFinished) return;
         const unanswered = answers.filter(a => a === null).length;
-        if (unanswered > 0 && !confirm(`⚠️ ${unanswered} soal belum terjawab. Yakin mengumpulkan?`)) return;
+        if (unanswered > 0 && !confirm(⚠️ ${unanswered} soal belum terjawab. Yakin mengumpulkan?)) return;
         submitQuiz();
     }
 
@@ -453,13 +474,17 @@
             if (answers[i] === questions[i].a) { score += 10; correct++; }
         }
         const passed = score >= 70;
+
+        // Tampilkan hasil
         let html = `
-        <h2>📊 Hasil Kuis</h2>
-        <div class="student-info">👤 ${studentName} | 🏫 ${studentClass}</div>
-        <div class="score-circle ${passed?'':'low'}">${score}</div>
-        <p style="text-align:center">${passed?'🎉 LULUS':'😔 BELUM LULUS'} (KKM 70)</p>
-        <p style="text-align:center">✅ Benar: ${correct} | ❌ Salah: ${10-correct}</p>
-        <hr><h3>📋 Review:</h3>`;
+        <div id="print-area">
+            <h2>📊 Hasil Kuis</h2>
+            <div class="student-info">👤 ${studentName} | 🏫 ${studentClass}</div>
+            <div class="score-circle ${passed?'':'low'}">${score}</div>
+            <p style="text-align:center">${passed?'🎉 LULUS':'😔 BELUM LULUS'} (KKM 70)</p>
+            <p style="text-align:center">✅ Benar: ${correct} | ❌ Salah: ${10-correct}</p>
+            <hr><h3>📋 Review:</h3>`;
+
         questions.forEach((q, i) => {
             const isCorrect = answers[i] === q.a;
             html += `
@@ -472,26 +497,68 @@
                 <b>📖 Pembahasan:</b> ${q.e}
             </div>`;
         });
-        html += `<div class="btn-row"><button class="btn-primary" onclick="goHome()">🏠 Menu Utama</button></div>`;
+
+        html += </div>;
+
+        // Tombol aksi
+        html += `
+        <div class="btn-row" id="no-print">
+            <button class="btn-save" onclick="tutupDanSimpan(${score}, ${correct})">💾 Simpan & Tutup</button>
+            <button class="btn-print" onclick="window.print()">🖨️ Cetak Hasil</button>
+        </div>`;
+
         document.getElementById('result').innerHTML = html;
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Kirim data ke Google Sheets
+        // Kirim data otomatis (pertama)
+        kirimData(studentName, studentClass, score, correct, 10 - correct);
+    }
+
+    function kirimData(nama, kelas, skor, benar, salah) {
+        console.log('Mengirim data ke Google Sheet...');
         fetch(SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                nama: studentName,
-                kelas: studentClass,
-                skor: score,
-                benar: correct,
-                salah: 10 - correct
+                nama: nama,
+                kelas: kelas,
+                skor: skor,
+                benar: benar,
+                salah: salah
             })
         })
         .then(response => response.text())
-        .then(data => console.log('Data terkirim ke Google Sheet'))
-        .catch(error => console.error('Gagal mengirim:', error));
+        .then(data => {
+            console.log('✅ Data terkirim:', data);
+            dataTerkirim = true;
+        })
+        .catch(error => {
+            console.error('❌ Gagal mengirim:', error);
+        });
     }
+
+    function tutupDanSimpan(skor, benar) {
+        // Kirim ulang untuk memastikan data tersimpan
+        kirimData(studentName, studentClass, skor, benar, 10 - benar);
+        alert('✅ Data berhasil disimpan! Kamu akan diarahkan ke menu utama.');
+        goHome();
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('quiz').classList.contains('hidden')) return;
+        if (quizFinished) return;
+        if (lockOptions) return;
+        if (e.key === 'ArrowLeft' || e.key === 'a') { e.preventDefault(); prevQ(); }
+        if (e.key === 'ArrowRight' || e.key === 'd') { e.preventDefault(); nextQ(); }
+        if (e.key === 'f') { e.preventDefault(); toggleFlag(); }
+        if (e.key >= '1' && e.key <= '4') {
+            e.preventDefault();
+            const idx = parseInt(e.key) - 1;
+            const opt = document.querySelectorAll('.option')[idx];
+            if (opt) opt.click();
+        }
+    });
 </script>
 </body>
 </html>
