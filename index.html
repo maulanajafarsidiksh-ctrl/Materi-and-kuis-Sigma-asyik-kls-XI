@@ -10,6 +10,7 @@
         .card{max-width:800px;width:100%;background:white;padding:20px;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
         h1{text-align:center;color:#0d47a1;font-size:1.5rem}
         h2{text-align:center;color:#555;font-size:1rem;margin-bottom:15px}
+        h3{color:#222;margin-bottom:8px}
         .hidden{display:none!important}
         .home-buttons{display:flex;flex-direction:column;gap:15px;margin:20px 0;align-items:center}
         .home-btn{width:100%;max-width:300px;padding:18px;border-radius:16px;font-weight:700;font-size:1.1rem;border:none;cursor:pointer;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
@@ -44,45 +45,86 @@
         .score-circle.low{background:#ffebee;color:#c62828}
         .student-info{text-align:center;background:#f1f8e9;padding:6px;border-radius:8px;font-weight:600}
         label{display:block;font-weight:600;margin-bottom:4px}
+        .materi-content{text-align:left;padding:10px;line-height:1.8}
+        .materi-content p{margin-bottom:12px}
+        .materi-content ul{padding-left:20px;margin-bottom:12px}
+        .materi-content ul li{margin-bottom:6px}
+        .example-box{background:#f1f8e9;border-left:4px solid #4caf50;padding:12px;border-radius:6px;margin:12px 0}
+        .formula{font-family:'Courier New',monospace;font-weight:700;color:#0d47a1;font-size:1.1rem}
     </style>
 </head>
 <body>
 <div class="card" id="app">
+    <!-- HOME -->
     <div id="home">
-        <h1>Notasi Sigma</h1>
+        <h1>📐 Notasi Sigma (Σ)</h1>
         <h2>MAS Sulamul Falah Pojan | Kelas XI</h2>
+        <p style="text-align:center;margin-bottom:15px">Pilih sesi untuk memulai:</p>
         <div class="home-buttons">
-            <button class="home-btn btn-materi" onclick="showPage('materi')">Materi Notasi Sigma</button>
-            <button class="home-btn btn-latihan" onclick="showPage('quizStart')">Latihan Soal (Kuis)</button>
+            <button class="home-btn btn-materi" onclick="showPage('materi')">📖 Materi Notasi Sigma</button>
+            <button class="home-btn btn-latihan" onclick="showPage('quizStart')">📝 Latihan Soal (Kuis)</button>
         </div>
     </div>
 
+    <!-- MATERI -->
     <div id="materi" class="hidden">
-        <h2>Materi Notasi Sigma</h2>
-        <p>Notasi sigma adalah simbol penjumlahan berurutan.</p>
-        <p>Contoh: 1+2+3+4+5 = 15</p>
+        <h2>📖 Materi Notasi Sigma (Σ)</h2>
+        <div class="materi-content">
+            <p><strong>Notasi sigma (Σ)</strong> adalah simbol matematika yang digunakan untuk menyingkat penjumlahan bilangan secara berurutan. Huruf Yunani <em>sigma</em> besar (Σ) dipakai untuk menyatakan jumlah dari suatu pola bilangan.</p>
+            
+            <p><span class="formula">Σ<sub>i=1</sub><sup>n</sup> a<sub>i</sub></span> berarti: <em>jumlah dari a<sub>i</sub> untuk i mulai dari 1 sampai n</em>.</p>
+            
+            <p>Notasi ini sangat berguna untuk menuliskan deret panjang seperti deret aritmetika, deret geometri, pembuktian induksi matematika, dan banyak lagi.</p>
+
+            <div class="example-box">
+                <strong>✏️ Contoh 1:</strong><br>
+                Σ<sub>i=1</sub><sup>5</sup> i = 1 + 2 + 3 + 4 + 5 = <b>15</b>
+            </div>
+
+            <div class="example-box">
+                <strong>✏️ Contoh 2:</strong><br>
+                Σ<sub>k=1</sub><sup>4</sup> (2k) = 2·1 + 2·2 + 2·3 + 2·4 = 2 + 4 + 6 + 8 = <b>20</b>
+            </div>
+
+            <div class="example-box">
+                <strong>✏️ Contoh 3:</strong><br>
+                Σ<sub>k=1</sub><sup>5</sup> k² = 1² + 2² + 3² + 4² + 5² = 1 + 4 + 9 + 16 + 25 = <b>55</b>
+            </div>
+
+            <p><strong>📌 Sifat-sifat dasar notasi sigma:</strong></p>
+            <ul>
+                <li><b>Konstanta:</b> Σ<sub>i=1</sub><sup>n</sup> c = n · c (c adalah konstanta)</li>
+                <li><b>Perkalian skalar:</b> Σ<sub>i=1</sub><sup>n</sup> c·a<sub>i</sub> = c · Σ<sub>i=1</sub><sup>n</sup> a<sub>i</sub></li>
+                <li><b>Penjumlahan:</b> Σ (a<sub>i</sub> + b<sub>i</sub>) = Σ a<sub>i</sub> + Σ b<sub>i</sub></li>
+                <li><b>Pengurangan:</b> Σ (a<sub>i</sub> − b<sub>i</sub>) = Σ a<sub>i</sub> − Σ b<sub>i</sub></li>
+                <li><b>Batas dapat diubah:</b> Σ<sub>i=1</sub><sup>n</sup> a<sub>i</sub> = Σ<sub>i=0</sub><sup>n−1</sup> a<sub>i+1</sub></li>
+            </ul>
+        </div>
         <div class="btn-row">
-            <button class="btn-outline" onclick="showPage('home')">Menu</button>
-            <button class="btn-primary" onclick="showPage('quizStart')">Lanjut Latihan</button>
+            <button class="btn-outline" onclick="showPage('home')">🏠 Menu Utama</button>
+            <button class="btn-primary" onclick="showPage('quizStart')">Lanjut ke Latihan 📝</button>
         </div>
     </div>
 
+    <!-- QUIZ START -->
     <div id="quizStart" class="hidden">
-        <h2>Latihan Soal</h2>
+        <h2>📝 Latihan Soal</h2>
+        <p style="text-align:center;font-size:0.9rem">10 Soal Pilihan Ganda • 30 Menit • KKM 70</p>
         <div class="form-group">
-            <label>Nama Lengkap</label>
-            <input type="text" id="studentName" placeholder="Masukkan nama">
+            <label>👤 Nama Lengkap</label>
+            <input type="text" id="studentName" placeholder="Masukkan nama kamu">
         </div>
         <div class="form-group">
-            <label>Kelas</label>
+            <label>🏫 Kelas</label>
             <input type="text" id="studentClass" placeholder="Contoh: XI IPA 1">
         </div>
         <div class="btn-row">
-            <button class="btn-outline" onclick="showPage('home')">Menu</button>
-            <button class="btn-primary" onclick="startQuiz()">Mulai Kuis</button>
+            <button class="btn-outline" onclick="showPage('home')">🏠 Menu</button>
+            <button class="btn-primary" onclick="startQuiz()">🚀 Mulai Kuis</button>
         </div>
     </div>
 
+    <!-- QUIZ -->
     <div id="quiz" class="hidden">
         <span class="timer" id="timer">30:00</span>
         <div class="progress"><div class="bar" id="bar"></div></div>
@@ -90,13 +132,14 @@
         <div class="numgrid" id="numgrid"></div>
         <div class="question"><h3 id="qtext"></h3><div id="options"></div></div>
         <div class="btn-row">
-            <button class="btn-outline" onclick="prevQ()">Sebelumnya</button>
-            <button class="btn-outline" onclick="toggleFlag()" id="flagBtn">Tandai</button>
-            <button class="btn-outline" onclick="nextQ()">Selanjutnya</button>
+            <button class="btn-outline" onclick="prevQ()">◀ Sebelumnya</button>
+            <button class="btn-outline" onclick="toggleFlag()" id="flagBtn">🚩 Tandai</button>
+            <button class="btn-outline" onclick="nextQ()">Selanjutnya ▶</button>
         </div>
-        <div class="btn-row"><button class="btn-save" onclick="finishQuiz()">Kumpulkan</button></div>
+        <div class="btn-row"><button class="btn-save" onclick="finishQuiz()">📝 Kumpulkan & Lihat Skor</button></div>
     </div>
 
+    <!-- RESULT -->
     <div id="result" class="hidden"></div>
 </div>
 
@@ -104,16 +147,16 @@
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnOanbsVNyXWPP1W58sYw1M6lOnfweIrvrBUvV_dIPU-IrTn6oj65JVap8bAK8BTeyEg/exec';
 
     const questions = [
-        { q: 'Nilai dari sigma i (i=1..5)', o: ['10','15','20','25'], a: '15', e: '1+2+3+4+5=15' },
-        { q: 'Nilai dari sigma 2k (k=1..4)', o: ['15','20','24','18'], a: '20', e: '2+4+6+8=20' },
-        { q: 'Bentuk sigma 1+2+3+4+5+6', o: ['1..5','1..6','1..7','0..6'], a: '1..6', e: 'Batas 1-6' },
-        { q: 'Nilai sigma (n+2) n=1..3', o: ['9','12','15','18'], a: '12', e: '3+4+5=12' },
-        { q: 'Nilai sigma k2 k=1..5', o: ['45','55','50','60'], a: '55', e: '1+4+9+16+25=55' },
-        { q: 'Nilai sigma i i=1..7', o: ['21','28','35','30'], a: '28', e: '1+...+7=28' },
-        { q: 'Nilai sigma 3k k=1..5', o: ['30','45','60','75'], a: '45', e: '3+6+9+12+15=45' },
-        { q: 'Nilai sigma (2n+1) n=1..4', o: ['20','24','18','16'], a: '24', e: '3+5+7+9=24' },
-        { q: 'Jika sigma k=21 maka sigma 2k?', o: ['42','21','36','48'], a: '42', e: '2x21=42' },
-        { q: 'Total Rp1000-Rp5000?', o: ['10rb','15rb','20rb','25rb'], a: '15rb', e: '1+2+3+4+5=15rb' }
+        { q: 'Nilai dari <b>Σ<sub>i=1</sub><sup>5</sup> i</b> adalah...', o: ['10','15','20','25'], a: '15', e: '1 + 2 + 3 + 4 + 5 = <b>15</b>' },
+        { q: 'Nilai dari <b>Σ<sub>k=1</sub><sup>4</sup> 2k</b> adalah...', o: ['15','20','24','18'], a: '20', e: '2 + 4 + 6 + 8 = <b>20</b>' },
+        { q: 'Bentuk notasi sigma dari <b>1 + 2 + 3 + 4 + 5 + 6</b> adalah...', o: ['Σ<sub>i=1</sub><sup>5</sup> i','Σ<sub>i=1</sub><sup>6</sup> i','Σ<sub>i=1</sub><sup>7</sup> i','Σ<sub>i=0</sub><sup>6</sup> i'], a: 'Σ<sub>i=1</sub><sup>6</sup> i', e: 'Batas bawah 1, batas atas 6 → <b>Σ<sub>i=1</sub><sup>6</sup> i</b>' },
+        { q: 'Nilai dari <b>Σ<sub>n=1</sub><sup>3</sup> (n + 2)</b> adalah...', o: ['9','12','15','18'], a: '12', e: '(1+2) + (2+2) + (3+2) = 3 + 4 + 5 = <b>12</b>' },
+        { q: 'Nilai dari <b>Σ<sub>k=1</sub><sup>5</sup> k²</b> adalah...', o: ['45','55','50','60'], a: '55', e: '1² + 2² + 3² + 4² + 5² = 1 + 4 + 9 + 16 + 25 = <b>55</b>' },
+        { q: 'Nilai dari <b>Σ<sub>i=1</sub><sup>7</sup> i</b> adalah...', o: ['21','28','35','30'], a: '28', e: '1+2+3+4+5+6+7 = <b>28</b> (rumus n(n+1)/2 = 7×8/2)' },
+        { q: 'Nilai dari <b>Σ<sub>k=1</sub><sup>5</sup> 3k</b> adalah...', o: ['30','45','60','75'], a: '45', e: '3 + 6 + 9 + 12 + 15 = <b>45</b>' },
+        { q: 'Nilai dari <b>Σ<sub>n=1</sub><sup>4</sup> (2n + 1)</b> adalah...', o: ['20','24','18','16'], a: '24', e: '3 + 5 + 7 + 9 = <b>24</b>' },
+        { q: 'Diketahui <b>Σ<sub>k=1</sub><sup>6</sup> k = 21</b>. Maka nilai <b>Σ<sub>k=1</sub><sup>6</sup> 2k</b> adalah...', o: ['42','21','36','48'], a: '42', e: 'Σ 2k = 2 × Σ k = 2 × 21 = <b>42</b>' },
+        { q: 'Total uang jika memiliki pecahan <b>Rp1.000</b> sampai <b>Rp5.000</b> (kelipatan 1.000) masing-masing satu lembar adalah...', o: ['Rp10.000','Rp15.000','Rp20.000','Rp25.000'], a: 'Rp15.000', e: 'Rp1.000 + Rp2.000 + Rp3.000 + Rp4.000 + Rp5.000 = <b>Rp15.000</b>' }
     ];
 
     let current = 0;
@@ -176,7 +219,7 @@
 
     function render() {
         lockOptions = false;
-        document.getElementById('qinfo').innerText = 'Soal ' + (current+1) + '/10';
+        document.getElementById('qinfo').innerText = 'Soal ' + (current+1) + ' dari 10';
         var answered = answers.filter(function(a) { return a !== null; }).length;
         document.getElementById('bar').style.width = (answered * 10) + '%';
         document.getElementById('qtext').innerHTML = questions[current].q;
@@ -265,31 +308,31 @@
         }
         var passed = score >= 70;
 
-        var html = '<h2>Hasil Kuis</h2>';
-        html += '<div class="student-info">' + studentName + ' | ' + studentClass + '</div>';
+        var html = '<h2>📊 Hasil Kuis</h2>';
+        html += '<div class="student-info">👤 ' + studentName + ' | 🏫 ' + studentClass + '</div>';
         html += '<div class="score-circle' + (passed ? '' : ' low') + '">' + score + '</div>';
-        html += '<p style="text-align:center">' + (passed ? 'LULUS' : 'BELUM LULUS') + ' (KKM 70)</p>';
-        html += '<p style="text-align:center">Benar: ' + correct + ' | Salah: ' + (10-correct) + '</p>';
-        html += '<hr><h3>Review:</h3>';
+        html += '<p style="text-align:center">' + (passed ? '🎉 LULUS' : '😔 BELUM LULUS') + ' (KKM 70)</p>';
+        html += '<p style="text-align:center">✅ Benar: ' + correct + ' | ❌ Salah: ' + (10-correct) + '</p>';
+        html += '<hr><h3>📋 Review Jawaban:</h3>';
 
         questions.forEach(function(q, i) {
             var isCorrect = answers[i] === q.a;
-            html += '<div class="review"><h4>Soal ' + (i+1) + '</h4>';
-            html += q.q + '<br>';
-            html += '<span class="' + (isCorrect ? 'correct' : 'wrong') + '">' + (isCorrect ? 'BENAR' : 'SALAH') + '</span><br>';
-            html += '<b>Jawaban Anda:</b> ' + (answers[i] || 'Tidak dijawab') + '<br>';
+            html += '<div class="review">';
+            html += '<h4>Soal ' + (i+1) + ' ' + (flagged[i] ? '🚩' : '') + '</h4>';
+            html += '<div style="background:white;padding:6px;border-radius:6px;margin:4px 0;border-left:4px solid #1565c0"><b>📝</b> ' + q.q + '</div>';
+            html += '<span class="' + (isCorrect ? 'correct' : 'wrong') + '">' + (isCorrect ? '✅ BENAR' : '❌ SALAH') + '</span><br>';
+            html += '<b>Jawaban Anda:</b> ' + (answers[i] || '<i>Tidak dijawab</i>') + '<br>';
             html += '<b>Jawaban Benar:</b> ' + q.a + '<br>';
-            html += '<b>Pembahasan:</b> ' + q.e + '</div>';
+            html += '<b>📖 Pembahasan:</b> ' + q.e;
+            html += '</div>';
         });
 
         html += '<div class="btn-row">';
-        html += '<button class="btn-save" onclick="simpanData(' + score + ',' + correct + ')">Simpan & Tutup</button>';
-        html += '<button class="btn-print" onclick="window.print()">Cetak Hasil</button>';
+        html += '<button class="btn-save" onclick="simpanData(' + score + ',' + correct + ')">💾 Simpan & Tutup</button>';
+        html += '<button class="btn-print" onclick="window.print()">🖨️ Cetak Hasil</button>';
         html += '</div>';
 
         document.getElementById('result').innerHTML = html;
-
-        // Kirim data otomatis
         simpanData(score, correct);
     }
 
